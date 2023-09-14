@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "start": "concurrently \"python app.py\" \"python next_page.py\"\"python viewpdf.py\""
+  }
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Article Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 96%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"], button[type="reset"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        p {
+            color: #555;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a.button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+
+        a.button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add margin to create space */
+        .button-space {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PUBMED ANALYZER</h1>
+        <form method="POST" id="screening-form">
+            <label for="pmid">Enter PMID:</label>
+            <input type="text" name="pmid" id="pmid" required>
+            <label for="keywords">Keywords (comma-separated):</label>
+            <input type="text" name="keywords" id="keywords">
+            <button type="submit" class="button-space">Search</button>
+            
+            <a href="/next" class="button">Analyzer</a>
+            
+            <a href="/view" class="button">View Full Article</a>
+        </form>
+
+        {% if pmcid %}
+        <p name="pcm">{{ pmcid }}</p>
+        {% endif %}
+        {% if title %}
+        <p><strong>Title:</strong> {{ title }}</p>
+        {% endif %}
+        {% if full_text_link %}
+        <p><strong>Full Text Link:</strong> <a href="{{ full_text_link }}" target="_blank">{{ full_text_link }}</a></p>
+        {% endif %}
+        {% if publication_type %}
+        <p><strong>Publication Type:</strong> {{ publication_type }}</p>
+        {% endif %}
+        {% if exclude_message %}
+        <p><strong>Exclusion Message:</strong> {{ exclude_message }}</p>
+        {% endif %}
+        {% if keyword_results %}
+        <p><strong>Exact Keywords Found in Abstract:</strong></p>
+        <ul>
+            {% for keyword, sentence in keyword_results %}
+            <li><strong>{{ keyword }}:</strong> {{ sentence }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <script>
+        // JavaScript function to reset the form
+        function resetForm() {
+            document.getElementById('screening-form').reset();
+        }
+    </script>
+</body>
+</html>

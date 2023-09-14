@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Full Text Article Keyword Analyzer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            color: #555;
+            text-align: justify;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 97%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        a.button{
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Full Text Article Keyword Analyzer</h1>
+        <p>Welcome to our Full Text Article Keyword Analyzer tool! With this tool, you can input the PMCID (PubMed Central Identifier) of a research article, and we'll assist you in extracting valuable insights from its full text. Our tool fetches the keywords used in the article and provides you with detailed information, including keyword counts and the sentences in which these keywords appear.</p>
+
+        <p><strong>Please Note:</strong> While we strive to make the analysis process as seamless as possible, it's important to be aware that not all PMCID entries are readily accessible for data extraction. Some articles may not be accessible through our tool due to restrictions imposed by PubMed. In such cases, you may need to manually curate the article or seek alternative sources for the desired information.</p>
+        <!-- Form to enter PMCID and keywords -->
+        <form method="POST">
+            <label for="pmcid">Enter PMCID:</label>
+            <input type="text" name="pmcid" print(result) required>
+            <label for="keywords">Keywords (comma-separated):</label>
+            <input type="text" name="keywords">
+            <button type="submit">Search</button>
+            <a href="/" class="button">Main Page </a>
+        </form>
+        
+
+        {% if pmcid %}
+        <p><a href="{{ url_for('view_article', pmcid=pmcid) }}" class="btn btn-primary" role="button">View Article</a></p>
+        {% endif %}
+
+        <h2>Keyword Counts:</h2>
+        <ul>
+            {% for keyword, data in keyword_counts.items() %}
+            <li><strong>{{ keyword }} (Count: {{ data["count"] }})</strong></li>
+            <ul>
+                {% for detail in data["details"] %}
+                <li>{{ detail }}</li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+        </ul>
+
+        
+    </div>
+</body>
+</html>
