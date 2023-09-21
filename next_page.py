@@ -74,4 +74,4 @@ def count_keywords(keywords, search_results):
     return keyword_counts
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
